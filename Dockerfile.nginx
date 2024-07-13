@@ -5,7 +5,7 @@ FROM nginx:latest
 
 # Copy self-signed certificate and key
 COPY cert/server.crt /etc/nginx/nginx-selfsigned.crt
-COPY /certserver.key /etc/nginx/nginx-selfsigned.key
+COPY cert/server.key /etc/nginx/nginx-selfsigned.key
 
 # Copy NGINX configuration
 COPY nginx.conf /etc/nginx/nginx.conf
