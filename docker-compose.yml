@@ -38,7 +38,7 @@ services:
        - db
        - redis
      volumes:
-       - ./config/keycloak.conf:opt/keycloak/conf/keycloak.conf
+       - ./config/keycloak.conf:/opt/keycloak/conf/keycloak.conf
      ports:
        - "8080:8080"
   db:
