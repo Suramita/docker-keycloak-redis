@@ -1,24 +1,44 @@
 version: '3.8'
 services:
   keycloak:
-    image: quay.io/keycloak/keycloak:latest
-    environment:
-      - KEYCLOAK_USER=admin
-      - KEYCLOAK_PASSWORD=admin_password
-      - DB_VENDOR=postgres
-      - DB_ADDR=db
-      - DB_PORT=5432
-      - DB_DATABASE=keycloak
-      - DB_USER=keycloak
-      - DB_PASSWORD=keycloak_password
-    networks:
-      - keycloak-network
-    depends_on:
-      - db
-      - redis
-    ports:
-      - "8080:8080"
+     image: quay.io/keycloak/keycloak:latest
+     command:
+       - start-dev
+     environment:
+       - KEYCLOAK_ADMIN=admin
+       - KEYCLOAK_ADMIN_PASSWORD=admin_password
+       - CACHE_OWNERS_COUNT=2
+       - CACHE_OWNERS_AUTH_SESSIONS_COUNT=2
+       - CACHE_OWNERS_AUTH_SESSIONS_LIFESPAN=3600000
+       - CACHE_OWNERS_LOGIN_SESSIONS_COUNT=2
+       - CACHE_OWNERS_OFFLINE_SESSIONS_COUNT=2
+       - CACHE_OWNERS_REALM_COUNT=2
+       - CACHE_OWNERS_REALM_AUTH_SESSIONS_COUNT=2
+       - CACHE_OWNERS_REALM_LOGIN_SESSIONS_COUNT=2
+       - CACHE_OWNERS_REALM_OFFLINE_SESSIONS_COUNT=2
+       - CACHE_OWNERS_WORK_CACHE_COUNT=2
+       - JGROUPS_DISCOVERY_PROTOCOL=JDBC_PING
+       - JGROUPS_DISCOVERY_PROPERTIES=dataSourceJndiName=java:jboss/datasources/KeycloakDS
+       - JDBC_PING_CONNECTION_URL=jdbc:postgresql://db:5432/keycloak
+       - JDBC_PING_USERNAME=keycloak
+       - JDBC_PING_PASSWORD=keycloak_password
+       - REDIS_HOST=redis
+       - DB_VENDOR=postgres
+       - DB_USER=keycloak
+       - DB_PASSWORD=keycloak_password
+       - DB_ADDR=db
+       - DB_PORT=5432
+       - DB_DATABASE=keycloak
+       - PROXY_ADDRESS_FORWARDING=true
+       - KC_PROXY=edge
 
+     networks:
+       - keycloak-network
+     depends_on:
+       - db
+       - redis
+     ports:
+       - "8080:8080"
   db:
     image: postgres:latest
     environment:
@@ -30,8 +50,7 @@ services:
     volumes:
       - db-data:/var/lib/postgresql/data
     ports:
-      - "5432:5432"
-
+       - "5432:5432"
   redis:
     image: redis:latest
     networks:
@@ -39,12 +58,10 @@ services:
     volumes:
       - redis-data:/data
     ports:
-      - "6379:6379"
-
+       - "6379:6379"
 networks:
   keycloak-network:
     driver: bridge
-
 volumes:
   db-data:
   redis-data:
