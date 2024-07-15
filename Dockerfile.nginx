@@ -4,7 +4,7 @@
 FROM nginx:latest
 
 # Copy self-signed certificate and key
-COPY certs/fayda-digicert-2025.crt /etc/nginx/
+COPY certs/fayda-digicert-2025.pem /etc/nginx/
 COPY certs/privatedigi.key /etc/nginx/
 
 # Copy NGINX configuration
