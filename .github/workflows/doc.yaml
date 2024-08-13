@@ -33,12 +33,6 @@ jobs:
       run: |
         docker-compose -f docker-compose.yml up -d
 
-    - name: Wait for Keycloak to be ready
-      run: |
-        until curl -s http://localhost:8080/ | grep "Keycloak"; do
-          echo "Waiting for Keycloak to be ready..."
-          sleep 5
-        done
 
     - name: Run tests
       run: |
