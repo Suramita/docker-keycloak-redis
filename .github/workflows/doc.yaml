@@ -40,14 +40,7 @@ jobs:
           sleep 5
         done
 
-    - name: Run tests
-      run: |
-        # Replace this with your actual test commands
-        echo "Running tests..."
-
-    - name: Stop services
-      run: |
-        docker-compose down
+    
 
     - name: SonarQube Scan
       uses: sonarsource/sonarqube-scan-action@v2.1.0
