@@ -33,6 +33,12 @@ jobs:
       run: |
         docker-compose -f docker-compose.yml up -d
 
+    - name: Wait for Keycloak to be ready
+      run: |
+        until curl -s http://localhost:8080/auth | grep "Keycloak"; do
+          echo "Waiting for Keycloak to be ready..."
+          sleep 5
+        done
 
     - name: Run tests
       run: |
@@ -42,8 +48,14 @@ jobs:
     - name: Stop services
       run: |
         docker-compose down
+
     - name: SonarQube Scan
       uses: sonarsource/sonarqube-scan-action@v2.1.0
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+      with:
+        args: >
+          -Dsonar.python.coverage.reportPaths=coverage.xml
+          -Dsonar.sources=src
+          -X
