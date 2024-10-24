@@ -14,5 +14,5 @@ RUN apt-get install -y postgresql-17-pgaudit
 ENV POSTGRES_INITDB_ARGS="--data-checksums"
 
 # Ensure the extension is created after database startup
-COPY init-pgaudit.sh /docker-entrypoint-initdb.d/init-pgaudit.sh
+#COPY init-pgaudit.sh /docker-entrypoint-initdb.d/init-pgaudit.sh
 
