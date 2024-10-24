@@ -2,7 +2,7 @@ FROM postgres:latest
 
 # Install the pgaudit extension
 RUN apt-get update && \
-    apt-get install -y postgresql-16-pgaudit
+    apt-get install -y postgresql-17-pgaudit
 
 # Copy the modified postgresql.conf to enable logging and pgaudit
 COPY postgresql.conf /var/lib/postgresql/data
