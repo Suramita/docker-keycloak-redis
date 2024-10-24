@@ -50,8 +50,8 @@ services:
       custom_net:
         ipv4_address: 172.23.83.2
     volumes:
-      - db-data:/var/lib/postgresql/db-data
-      - db_log:/var/log/postgresql
+      - databasedata:/var/lib/postgresql/data
+      - databaselog:/var/log/postgresql
     ports:
        - "5435:5432"
     logging:
@@ -68,5 +68,5 @@ networks:
              gateway: 172.23.83.1
 
 volumes:
-  db-data:
-  db_log:
+  databasedata:
+  databaselog:
