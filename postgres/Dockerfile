@@ -5,7 +5,7 @@ RUN apt-get update && \
     apt-get install -y postgresql-17-pgaudit
 
 # Copy the modified postgresql.conf to enable logging and pgaudit
-COPY postgresql.conf /var/lib/postgresql/data
+COPY postgresql.conf /etc/postgresql/postgresql.conf
 
 # Set the PostgreSQL config path
 ENV POSTGRES_INITDB_ARGS="--data-checksums"
