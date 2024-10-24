@@ -50,7 +50,7 @@ services:
       custom_net:
         ipv4_address: 172.23.83.2
     volumes:
-      - databasedata:/var/lib/postgresql/data
+      - databasedata:/var/lib/postgresql/dbdata
       - databaselog:/var/log/postgresql
     ports:
        - "5435:5432"
