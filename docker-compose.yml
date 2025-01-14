@@ -32,7 +32,7 @@ services:
        - KC_PROXY=edge
      networks:
       custom_net:
-        ipv4_address: 172.23.83.3
+        ipv4_address: ip
      depends_on:
        - db
      volumes:
@@ -48,7 +48,7 @@ services:
       - POSTGRES_PASSWORD=keycloak_password
     networks:
       custom_net:
-        ipv4_address: 172.23.83.2
+        ipv4_address: ip
     volumes:
       - databasedata:/var/lib/postgresql/dbdata
       - databaselog:/var/log/postgresql
@@ -64,8 +64,8 @@ networks:
         driver: bridge
         ipam:
            config:
-           - subnet: 172.23.83.0/24
-             gateway: 172.23.83.1
+           - subnet: networkaddress/24
+             gateway: gatewayip
 
 volumes:
   databasedata:
